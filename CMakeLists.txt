@@ -10,4 +10,10 @@ add_executable(training_diary
         systemTech.c
         systemTech.h
         questionDataBool.c
-        questionDataBool.h)
+        questionDataBool.h
+        traningHooks.c
+        traningHooks.h
+        createTraning.c
+        createTraning.h
+        checkTraining.c
+        checkTraining.h)

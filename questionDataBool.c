@@ -1,30 +1,23 @@
 #include "questionDataBool.h"
-#include <stdlib.h>
 #include <stdio.h>
-#include "systemTech.h"
+#include "traningHooks.h"
 
-enum {START ,ADD, REMOVE, CHANGE, CHECK, END};
+enum {START ,ADD, CHECK, ADVICE};
 
 void questionData(){
     int questionDataBool; // Переменная, имитирующая логику выбора
     printf("\n Выберите нужный функционал:\n");
-    printf("\n 1: Добавить новую запись \n 2: Удалить запись \n 3: Изменить запись \n 4: Проверить запись (доступно только для Админа) \n ");
+    printf("\n 1: Добавить новую запись \n 2: Удалить запись \n 3: Изменить запись\n");
     scanf("%d", &questionDataBool); // Считываем переменную, имитирующую логику выбора
     switch (questionDataBool) {
         case ADD:
-            addData(); // Функция добавления данных
-            break;
-        case REMOVE:
-            removeData(); // Функция удаления данных
-            break;
-        case CHANGE:
-            changeData(); // Функция изменения данных
+            createTraning(); // Функция добавления тренировок
             break;
         case CHECK:
-            checkData(); // Функция проверки данных
+            reportTraining(); // Функция просмотра тренировки
             break;
-        case END:
-            GenerateReport(); // Функция для генерации отчета
+        case ADVICE:
+            adviceTraning(); // Функция выдачи советов
             break;
         default:
             printf("Неверный ввод"); // Обработка некорректного ввода

@@ -1,0 +1,5 @@
+#ifndef TRAINING_DIARY_CHECKTRAINING_H
+#define TRAINING_DIARY_CHECKTRAINING_H
+void checkTraining();
+
+#endif
