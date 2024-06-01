@@ -7,7 +7,7 @@
 #define EXERCISES_PER_GROUP (MAX_EXERCISES / GROUPS)
 
 void read_all_trainings() {
-    FILE *file = fopen("C:\\Users\\maks2\\CLionProjects\\training-diary\\traning.txt", "r");
+    FILE *file = fopen("C:\\Users\\maks2\\CLionProjects\\training-diary\\training.txt", "r");
     if (!file) {
         perror("Не удалось открыть файл");
         return;
@@ -22,7 +22,7 @@ void read_all_trainings() {
 }
 
 void read_trainings_by_date(const char *date) {
-    FILE *file = fopen("C:\\Users\\maks2\\CLionProjects\\training-diary\\traning.txt", "r");
+    FILE *file = fopen("C:\\Users\\maks2\\CLionProjects\\training-diary\\training.txt", "r");
     if (!file) {
         perror("Не удалось открыть файл");
         return;
@@ -48,7 +48,7 @@ void read_trainings_by_date(const char *date) {
 }
 
 void read_trainings_by_exercise(const char *exercise) {
-    FILE *file = fopen("C:\\Users\\maks2\\CLionProjects\\training-diary\\traning.txt", "r");
+    FILE *file = fopen("C:\\Users\\maks2\\CLionProjects\\training-diary\\training.txt", "r");
     if (!file) {
         perror("Не удалось открыть файл");
         return;

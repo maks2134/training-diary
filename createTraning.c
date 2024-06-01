@@ -7,19 +7,87 @@
 #define EXERCISES_PER_GROUP (MAX_EXERCISES / GROUPS)
 
 typedef struct {
-    char date[11]; // Дата тренировки в формате "YYYY-MM-DD"
-    int duration;  // Продолжительность тренировки в минутах (опционально)
+    char date[11];    // Дата тренировки в формате "YYYY-MM-DD"
+    int duration;     // Продолжительность тренировки в минутах (опционально)
     char exercise[50]; // Название упражнения
-    int repetitions; // Количество повторений
-    float weight; // Вес, который использовался
+    int repetitions;  // Количество повторений
+    float weight;     // Вес, который использовался
 } Training;
 
+typedef struct Node {
+    Training data;
+    struct Node *next;
+} Node;
+
+typedef struct {
+    Node *front;
+    Node *rear;
+} Queue;
+
+// Функции для работы с очередью
+void initQueue(Queue *q) {
+    q->front = q->rear = NULL;
+}
+
+int isEmpty(Queue *q) {
+    return q->front == NULL;
+}
+
+void enqueue(Queue *q, Training data) {
+    Node *newNode = (Node *)malloc(sizeof(Node));
+    if (!newNode) {
+        perror("Не удалось выделить память для нового узла");
+        exit(EXIT_FAILURE);
+    }
+    newNode->data = data;
+    newNode->next = NULL;
+
+    if (q->rear) {
+        q->rear->next = newNode;
+    }
+    q->rear = newNode;
+
+    if (!q->front) {
+        q->front = newNode;
+    }
+}
+
+Training dequeue(Queue *q) {
+    if (isEmpty(q)) {
+        perror("Очередь пуста");
+        exit(EXIT_FAILURE);
+    }
+    Node *temp = q->front;
+    Training data = temp->data;
+    q->front = q->front->next;
+
+    if (!q->front) {
+        q->rear = NULL;
+    }
+    free(temp);
+    return data;
+}
+
+void printTraining(Training training) {
+    printf("Дата: %s\n", training.date);
+    if (training.duration > 0) {
+        printf("Продолжительность: %d минут\n", training.duration);
+    }
+    printf("Упражнение: %s\n", training.exercise);
+    printf("Количество повторений: %d\n", training.repetitions);
+    printf("Вес: %.2f кг\n", training.weight);
+    printf("--------------------------\n");
+}
+
 void write_training() {
-    FILE *file = fopen("C:\\Users\\maks2\\CLionProjects\\training-diary\\traning.txt", "a");
+    FILE *file = fopen("C:\\Users\\maks2\\CLionProjects\\training-diary\\training.txt", "a");
     if (!file) {
         perror("Не удалось открыть файл");
         return;
     }
+
+    Queue trainingQueue;
+    initQueue(&trainingQueue);
 
     Training training;
     char duration_input[10];
@@ -73,14 +141,21 @@ void write_training() {
     printf("Введите вес, который использовался: ");
     scanf("%f", &training.weight);
 
-    fprintf(file, "Дата: %s\n", training.date);
-    if (training.duration > 0) {
-        fprintf(file, "Продолжительность: %d минут\n", training.duration);
+    // Добавляем тренировку в очередь
+    enqueue(&trainingQueue, training);
+
+    // Записываем все тренировки из очереди в файл
+    while (!isEmpty(&trainingQueue)) {
+        Training t = dequeue(&trainingQueue);
+        fprintf(file, "Дата: %s\n", t.date);
+        if (t.duration > 0) {
+            fprintf(file, "Продолжительность: %d минут\n", t.duration);
+        }
+        fprintf(file, "Упражнение: %s\n", t.exercise);
+        fprintf(file, "Количество повторений: %d\n", t.repetitions);
+        fprintf(file, "Вес: %.2f кг\n", t.weight);
+        fprintf(file, "--------------------------\n");
     }
-    fprintf(file, "Упражнение: %s\n", training.exercise);
-    fprintf(file, "Количество повторений: %d\n", training.repetitions);
-    fprintf(file, "Вес: %.2f кг\n", training.weight);
-    fprintf(file, "--------------------------\n");
 
     fclose(file);
     printf("Тренировка успешно записана в файл.\n");
