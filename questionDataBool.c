@@ -5,6 +5,7 @@
 enum {START ,ADD, CHECK, ADVICE};
 
 void questionData(){
+
     int questionDataBool; // Переменная, имитирующая логику выбора
     printf("\n Выберите нужный функционал:\n");
     printf("\n 1: Добавить тренировку \n 2: Просмотреть тренировку \n 3: Советы по тренировкам\n");

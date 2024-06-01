@@ -16,4 +16,6 @@ add_executable(training_diary
         createTraning.c
         createTraning.h
         checkTraining.c
-        checkTraining.h)
+        checkTraining.h
+        adviceTraining.c
+        adviceTraining.h)
