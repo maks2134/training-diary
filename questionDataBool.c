@@ -7,7 +7,7 @@ enum {START ,ADD, CHECK, ADVICE};
 void questionData(){
     int questionDataBool; // Переменная, имитирующая логику выбора
     printf("\n Выберите нужный функционал:\n");
-    printf("\n 1: Добавить новую запись \n 2: Удалить запись \n 3: Изменить запись\n");
+    printf("\n 1: Добавить тренировку \n 2: Просмотреть тренировку \n 3: Советы по тренировкам\n");
     scanf("%d", &questionDataBool); // Считываем переменную, имитирующую логику выбора
     switch (questionDataBool) {
         case ADD:
